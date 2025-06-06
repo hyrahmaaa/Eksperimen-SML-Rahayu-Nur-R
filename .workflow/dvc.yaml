@@ -1,13 +1,13 @@
 # .workflow/dvc.yaml
-# Definisi pipeline DVC untuk proyek Anda (akan diisi nanti)
+# Definisi pipeline DVC untuk proyek (Hanya tahap preprocessing saat ini)
 
 stages:
-  # Tahap-tahap akan didefinisikan di sini nanti
-  # Contoh:
-  # preprocess_data:
-  #   cmd: python preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
-  #   deps:
-  #     - Telco-Customer-Churn.csv
-  #     - preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
-  #   outs:
-  #     - data/preprocessed_data.pkl
+  # Tahap Prepare:Preprocessing Data
+  prepare: 
+    cmd: python preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
+    deps: 
+      - preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
+      - Telco-Customer-Churn.csv 
+    outs:
+      - Telco-Customer-Churn-Result.csv
+    
