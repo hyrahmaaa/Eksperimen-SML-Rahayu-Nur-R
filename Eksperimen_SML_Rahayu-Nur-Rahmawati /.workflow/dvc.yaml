@@ -7,8 +7,8 @@ stages:
     cmd: python preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
     deps: 
       - preprocessing/eksperimen_msml_rahayu_nur_rahmawati.py
-      - Telco-Customer-Churn.csv 
+      - preprocessing/Telco-Customer-Churn.csv 
     outs:
-      - Telco-Customer-Churn-Result.csv
+      - preprocessing/Telco-Customer-Churn-Result.csv
     
 
