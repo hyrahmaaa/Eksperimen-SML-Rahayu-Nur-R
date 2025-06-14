@@ -16,8 +16,8 @@ jobs:
   preprocess_data:
     runs-on: ubuntu-latest 
 
- permissions:
-      contents: write
+    permissions:
+        contents: write
       
     steps:
     - name: Checkout repository 
