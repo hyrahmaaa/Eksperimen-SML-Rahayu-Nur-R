@@ -28,7 +28,7 @@ PATH_TO_PROCESSED_DATA = os.path.join('.', PROCESSED_DATA_FOLDER_NAME)
 DAGSHUB_USERNAME = "hyrahmaaa"
 DAGSHUB_REPO_NAME = "Submission-Membangun-Sistem-Machine-Learning"
 
-MLFLOW_TRACKING_URI = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO_NAME}.mlflow"
+MLFLOW_TRACKING_URI = f"https://dagshub.com/hyrahmaaa/Submission-Membangun-Sistem-Machine-Learning.mlflow"
 
 os.environ["MLFLOW_TRACKING_URI"] = MLFLOW_TRACKING_URI
 
