@@ -142,7 +142,9 @@ if __name__ == "__main__":
     df = handle_outliers(df.copy())
 
     X_train_scaled, X_test_scaled, y_train, y_test = split_and_scale_data(df.copy())
-
+    
+    print("Menyimpan data hasil preprocessing...") 
+    
     save_processed_data(X_train_scaled, X_test_scaled, y_train, y_test, PROCESSED_DATA_DIR)
-
+    
     print("\n--- Otomasi Preprocessing Selesai! ---")
