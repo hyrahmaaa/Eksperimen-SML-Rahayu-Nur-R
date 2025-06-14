@@ -18,7 +18,55 @@ def load_data(file_path):
     df = pd.read_csv(file_path)
     print(f"Data dimuat. Ukuran: {df.shape}")
     return df
+    
+def handle_total_charges(df):
+    """
+    Menangani kolom TotalCharges: mengubah ke numerik dan mengisi missing values.
+    """
+    print("Menangani kolom 'TotalCharges'...")
+    
+    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+    
+    median_total_charges = df['TotalCharges'].median()
+    df['TotalCharges'].fillna(median_total_charges, inplace=True) # Perhatian: warning inplace tidak masalah saat ini
+    
+    print(f"NaN di 'TotalCharges' diisi dengan median: {median_total_charges:.2f}")
+    print(f"Tipe data 'TotalCharges' setelah konversi: {df['TotalCharges'].dtype}")
+    
+    return df
+    
+def encode_binary_features(df):
+    """
+    Menerapkan Label Encoding pada fitur kategorikal biner.
+    """
+    print("Menerapkan Label Encoding pada fitur biner...")
+    binary_cols = ['gender', 'Partner', 'Dependents', 'PhoneService', 'PaperlessBilling', 'Churn'] # <-- Sesuaikan jika daftar Anda berbeda
+    le = LabelEncoder()
+    for col in binary_cols:
+        if df[col].dtype == 'object': # Pastikan kolom adalah objek sebelum encoding
+            df[col] = le.fit_transform(df[col])
+            # Print opsional untuk verifikasi di script
+            # print(f"  Kolom '{col}' di-encode. Nilai unik: {df[col].unique()}")
+    print("Label Encoding selesai.")
+    return df
+    
+def encode_multi_class_features(df):
+    """
+    Menerapkan One-Hot Encoding pada fitur kategorikal multi-kelas.
+    """
+    print("Menerapkan One-Hot Encoding pada fitur multi-kelas...")
+    multi_cols = [ 
+        'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup',
+        'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies',
+        'Contract', 'PaymentMethod'
+    ]
 
+    multi_cols_to_encode = [col for col in multi_cols if col in df.columns and df[col].dtype == 'object']
+
+    df = pd.get_dummies(df, columns=multi_cols_to_encode, drop_first=True) 
+    
+    print("One-Hot Encoding selesai.")
+    return df
 
 def handle_outliers(df):
     """
@@ -40,21 +88,6 @@ def handle_outliers(df):
         print(f"  Outlier di '{col}' ditangani (Batas: {lower_bound:.2f} - {upper_bound:.2f})")
 
     print("Penanganan outlier selesai.")
-    return df
-
-def encode_binary_features(df):
-    """
-    Menerapkan Label Encoding pada fitur kategorikal biner.
-    """
-    print("Menerapkan Label Encoding pada fitur biner...")
-    binary_cols = ['gender', 'Partner', 'Dependents', 'PhoneService', 'PaperlessBilling', 'Churn'] # <-- Sesuaikan jika daftar Anda berbeda
-    le = LabelEncoder()
-    for col in binary_cols:
-        if df[col].dtype == 'object': # Pastikan kolom adalah objek sebelum encoding
-            df[col] = le.fit_transform(df[col])
-            # Print opsional untuk verifikasi di script
-            # print(f"  Kolom '{col}' di-encode. Nilai unik: {df[col].unique()}")
-    print("Label Encoding selesai.")
     return df
 
 def split_and_scale_data(df):
