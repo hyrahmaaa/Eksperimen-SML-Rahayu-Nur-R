@@ -22,8 +22,16 @@ import os
 PROCESSED_DATA_FOLDER_NAME = '/content/drive/MyDrive/MLOps/Membangun_model/telco_churn_preprocessing'
 PATH_TO_PROCESSED_DATA = os.path.join('.', PROCESSED_DATA_FOLDER_NAME)
 
-MLFLOW_TRACKING_URI = "file:///content/drive/My Drive/MLOps/Membangun_model/mlruns"
+DAGSHUB_USERNAME = "hyrahmaaa" 
+DAGSHUB_REPO_NAME = "Submission-Membangun-Sistem-Machine-Learning" 
+
+MLFLOW_TRACKING_URI = f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO_NAME}.mlflow"
+
 os.environ["MLFLOW_TRACKING_URI"] = MLFLOW_TRACKING_URI
+
+os.environ["MLFLOW_TRACKING_PASSWORD"] = "f7581dbc3e77698b93cd16a652cd1edf96e594d9" # <--- GANTI DENGAN TOKEN DAGSHUB ASLI ANDA
+os.environ["MLFLOW_TRACKING_USERNAME"] = DAGSHUB_USERNAME 
+
 
 def load_processed_data(path):
     """
