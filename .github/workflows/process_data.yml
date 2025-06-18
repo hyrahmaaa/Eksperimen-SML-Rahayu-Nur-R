@@ -32,7 +32,7 @@ jobs:
     - name: Run data preprocessing script 
       run: |
         cd preprocessing
-        python preprocessing/automate_Rahayu-Nur-R.py 
+        python automate_Rahayu-Nur-R.py 
 
     - name: Upload preprocessed data artifact
       uses: actions/upload-artifact@v4
