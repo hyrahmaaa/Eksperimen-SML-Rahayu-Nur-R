@@ -4,13 +4,9 @@ name: Preprocess Telco Churn Data
 
 on:
   push:
-    branches:
-      - main 
-    paths:
-      - 'telco_churn_raw/**'      
-      - 'preprocessing/automate_Rahayu-Nur-R.py' 
-      - 'requirements.txt'        
-  workflow_dispatch: 
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   
 jobs:
   preprocess_data:
@@ -26,7 +22,7 @@ jobs:
     - name: Set up Python 
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9' 
+        python-version: '3.12.7'
 
     - name: Install dependencies 
       run: |
@@ -35,8 +31,16 @@ jobs:
 
     - name: Run data preprocessing script 
       run: |
+        cd preprocessing
         python preprocessing/automate_Rahayu-Nur-R.py 
 
+    - name: Upload preprocessed data artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: preprocessed-telco-churn
+        path: preprocessing/telco_churn_preprocessing/*
+        if-no-files-found: error 
+        
     - name: Commit processed data 
       run: |
         git config user.name "github-actions[bot]"
